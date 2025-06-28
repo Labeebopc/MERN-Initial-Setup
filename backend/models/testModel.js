@@ -1,28 +1,37 @@
 const mongoose = require("mongoose")
 
-// Lead Schema
-const testSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: [true, "Please enter your name"]
+//  Order Details Schema
+const orderDetailSchema = new mongoose.Schema({
+
+    orderDate: { 
+        type: Date, required: true 
     },
 
-    email: {
-        type: String,
-        required: [true, "Please enter your email"]
+    orderRefNo: { 
+        type: String, required: true, unique: true 
     },
 
-    phone: {
-        type: String,
-        required: [true, "Please enter your phone"]
+    securityName: { 
+        type: String, required: true 
     },
 
-    isActive: {
-        type: Boolean, default: true
-    }
+    fundName: { 
+        type: String, required: true 
+    },
 
-}, { timestamps: true })
+    transactionType: { 
+        type: String, enum: ['BUY', 'SELL'], required: true 
+    },
 
-const testModel = mongoose.model("Test", testSchema)
+    quantity: { 
+        type: Number, required: true 
+    },
 
-module.exports = testModel;
+    price: { 
+        type: Number, required: true 
+    },
+
+    amount: { type: Number, required: true }
+});
+
+module.exports = mongoose.model('OrderDetail', orderDetailSchema);
